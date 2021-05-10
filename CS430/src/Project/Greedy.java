@@ -15,7 +15,7 @@ public class Greedy {
 		int x1 = link.getP1().getX();
 		int y1 = link.getP1().getY();
 		int x2 = link.getP2().getX();
-		int y2 = link.getP2().getY();
+		int y2 = link.getP2().getY(); 
 		
 		if(vert)
 		{
