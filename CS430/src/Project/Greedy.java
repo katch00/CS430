@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class Greedy {
 	
+	// for this code I used the professor's provided notes and the textbook.
+	
 	
 	public static boolean isCut(Link link, double line, boolean vert)
 	{
@@ -51,10 +53,10 @@ public class Greedy {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		//String fileName = args[0];
-		//File file = new File(fileName);
-		String fileName = "instance01.txt";
+		String fileName = args[0];
 		File file = new File(fileName);
+		//String fileName = "instance01.txt";
+		//File file = new File(fileName);
 		String fileno = fileName.replaceAll("\\D+","");
 		
 		String currline;
@@ -163,7 +165,7 @@ public class Greedy {
 		
 		//create output file according to store output.
 		FileWriter outputfile = new FileWriter("greedy_solution"+fileno+".txt");
-		//call function to select vertical and horizontal line
+
 		outputfile.write(solution.size()+"\n");
 
 		for(int i=0; i<solution.size();i++)
