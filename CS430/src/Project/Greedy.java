@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Greedy {
 	
@@ -37,7 +35,7 @@ public class Greedy {
 		return flag;
 	}
 	
-	public static int getCuts(double line, double currLine, ArrayList<Link> links, boolean vert)
+	public static int getCuts(double line, ArrayList<Link> links, boolean vert)
 	{
 		int countCuts = 0;
 
@@ -54,16 +52,15 @@ public class Greedy {
 	
 	public static void main(String[] args) throws Exception {
 		//String fileName = args[0];
-		File file = new File("instance02.txt");
-		String fileName = file.getName();
+		//File file = new File(fileName);
+		String fileName = "instance01.txt";
+		File file = new File(fileName);
 		String fileno = fileName.replaceAll("\\D+","");
-
+		
 		String currline;
-		int n = 0;
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		currline = br.readLine();
 		//get firstline from file which gives total points
-		n = Integer.parseInt(currline);
 		
 		ArrayList<String> solution = new ArrayList<>();
 		ArrayList<Point> points = new ArrayList<Point>();
@@ -99,23 +96,22 @@ public class Greedy {
 		}
 		
 		double line;
-		boolean orientation = true; //true means verticle, false means horizontal
+		boolean orientation; //true means verticle, false means horizontal
 		
-		while((links.size()) > 0)
+		while((links.size()) != 0)
 		{
-			double currVLine =0, currHLine = 0, currLine =0;
+			double currVLine =0, currHLine = 0;
 			int hMax = 0, vMax = 0;
 			orientation = false;
 			double h1 = minY + .5;
 			double v1 = minX + .5;
-			
 			while(true)
 			{
 				if(h1 > maxY)
 				{
 					break;
 				}
-				int hLineCuts = getCuts(h1, currLine,links, false);
+				int hLineCuts = getCuts(h1,links, false);
 				if(hMax< hLineCuts)
 				{
 					hMax = hLineCuts;
@@ -124,12 +120,11 @@ public class Greedy {
 				h1 += 1;
 			}
 			
-			
 			while(true)
 			{
 				if(v1 > maxX)
 					break;
-				int vLineCuts = getCuts(v1, currLine,links, true);
+				int vLineCuts = getCuts(v1,links, true);
 				if(vMax< vLineCuts)
 				{
 					vMax = vLineCuts;
@@ -165,17 +160,12 @@ public class Greedy {
 			toRemove.clear(); 
 			
 		}
-
-		for(String sol : solution)
-		{
-			System.out.println(sol);
-		}
-
 		
 		//create output file according to store output.
 		FileWriter outputfile = new FileWriter("greedy_solution"+fileno+".txt");
 		//call function to select vertical and horizontal line
 		outputfile.write(solution.size()+"\n");
+
 		for(int i=0; i<solution.size();i++)
 		{
 			outputfile.write(solution.get(i)+"\n");
